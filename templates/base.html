@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Genomic Portfolio{% endblock %}</title>
+    <meta name="description"
+        content="Genomic Portfolio of a Cybernetic Developer. Explore projects, collaborations, and the digital genome.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap"
         rel="stylesheet">
@@ -14,20 +17,27 @@
     <!-- The 3D Multi-Color DNA Canvas Background -->
     <canvas id="dna-bg"></canvas>
 
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Home</a>
-        <a href="{{ url_for('projects') }}"
-            class="{% if request.endpoint == 'projects' %}active{% endif %}">Projects</a>
-        <a href="{{ url_for('collaborations') }}"
-            class="{% if request.endpoint == 'collaborations' %}active{% endif %}">Collaborations</a>
-    </nav>
+    <!-- Back Button (Visible on dashboard pages) -->
+    {% if request.endpoint != 'index' %}
+    <a href="{{ url_for('index') }}" class="back-btn">&larr; Home</a>
+    {% endif %}
 
     <!-- Main Dynamic Content -->
     <main>
         {% block content %}
         {% endblock %}
     </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Genomic Portfolio | Developed by {{ GITHUB_USER or 'sandesharx143' }}</p>
+            <div class="social-links small">
+                <a href="https://github.com/{{ GITHUB_USER or 'sandesharx143' }}" target="_blank">GitHub</a>
+                <a href="#" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
 
     <!-- Loading the complex DNA script -->
     <script src="{{ url_for('static', filename='js/dna.js') }}"></script>

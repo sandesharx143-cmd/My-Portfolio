@@ -2,26 +2,71 @@
 {% block title %}Genomic Portfolio | Homo Technologicus{% endblock %}
 
 {% block content %}
-<section class="hero glass-panel">
-  {% if user %}
-  <img id="profile-pic" class="profile" src="{{ user.avatar_url }}" alt="Profile Photo">
-  <h2 class="scientific">Homo Technologicus</h2>
-  <h1 class="glitch" data-text="{{ user.name or user.login }}">{{ user.name or user.login }}</h1>
-  <p class="bio">{{ user.bio or "Cybernetic researcher exploring code genomes and digital evolution." }}</p>
+<div class="home-container">
+  <!-- Profile Header -->
+  <header class="home-header">
+    <div class="profile-frame">
+      {% if user and user.avatar_url %}
+      <img src="{{ user.avatar_url }}" alt="Profile" class="home-profile">
+      {% else %}
+      <div class="profile-placeholder"></div>
+      {% endif %}
+    </div>
+    <div class="bio-data-tag">Sequence: DH-01 // Verified</div>
+    <h1 class="glitch" data-text="{{ user.name or 'Nagesh R' }}">{{ user.name or 'Nagesh R' }}</h1>
+    <p class="scientific-tag">Synthesized Organic System: V2.1</p>
+  </header>
 
-  <div class="stats">
-    <div class="stat-box">
-      <span class="stat-num">{{ user.public_repos }}</span>
-      <span class="stat-label">Repositories</span>
+  <!-- Biometric Activity Section -->
+  <section class="activity-strip glass-panel"
+    style="margin-bottom: 1rem !important; border-color: rgba(0, 255, 255, 0.3);">
+    <div class="activity-box">
+      <span class="activity-num">{{ bio_stats.neural_sync }}%</span>
+      <span class="activity-label">Neural Sync</span>
     </div>
-    <div class="stat-box">
-      <span class="stat-num">{{ user.followers }}</span>
-      <span class="stat-label">Followers</span>
+    <div class="activity-box">
+      <span class="activity-num">{{ bio_stats.genetic_integrity }}</span>
+      <span class="activity-label">Genetic Integrity</span>
     </div>
+    <div class="activity-box">
+      <span class="activity-num">{{ bio_stats.evolution_level }}</span>
+      <span class="activity-label">Evolution</span>
+    </div>
+  </section>
+
+  <!-- GitHub Activity Section -->
+  <section class="activity-strip glass-panel">
+    <div class="activity-box">
+      <span class="activity-num">{{ user.public_repos or 0 }}</span>
+      <span class="activity-label">Repositories</span>
+    </div>
+    <div class="activity-box">
+      <span class="activity-num">{{ total_stars or 0 }}</span>
+      <span class="activity-label">Stars</span>
+    </div>
+    <div class="activity-box">
+      <span class="activity-num">{{ user.followers or 0 }}</span>
+      <span class="activity-label">Followers</span>
+    </div>
+  </section>
+
+  <!-- Dashboard Grid -->
+  <div class="dashboard-grid">
+    <a href="{{ url_for('about') }}" class="dash-card glass-panel animate-in" style="--delay: 0.1s">
+      <div class="dash-icon">🧬</div>
+      <h3>About</h3>
+      <p>Deciphering the personal bio and digital history.</p>
+    </a>
+    <a href="{{ url_for('projects') }}" class="dash-card glass-panel animate-in" style="--delay: 0.2s">
+      <div class="dash-icon">🚀</div>
+      <h3>Projects</h3>
+      <p>Exploring the repository of digital constructions.</p>
+    </a>
+    <a href="{{ url_for('skills') }}" class="dash-card glass-panel animate-in" style="--delay: 0.3s">
+      <div class="dash-icon">🧠</div>
+      <h3>Skills</h3>
+      <p>Analyzing the neural pathways of code expertise.</p>
+    </a>
   </div>
-  {% else %}
-  <h2>Error Loading Profile</h2>
-  <p>Could not fetch data from GitHub. Please check your connection or username.</p>
-  {% endif %}
-</section>
+</div>
 {% endblock %}

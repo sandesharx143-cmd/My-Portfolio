@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Skills | Genomic Portfolio{% endblock %}
+
+{% block content %}
+<section class="glass-panel skills-dashboard animate-in">
+    <h2>🧠 Neural Skill Matrix</h2>
+
+    <h3 style="margin-top: 2rem; border-bottom: 1px solid var(--primary-color);">🧬 Primary Neural Pathways</h3>
+    <div class="skills-grid">
+        {% for skill in neural_skills %}
+        <div class="skill-card glass-panel" style="--delay: {{ loop.index * 0.1 }}s">
+            <div class="skill-header">
+                <span class="skill-name">{{ skill.name }}</span>
+                <span class="skill-count">{{ skill.level }}%</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">{{ skill.desc }}</p>
+            <div class="skill-bar-bg">
+                <div class="skill-bar-fill" style="width:{{ skill.level }}%"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h3 style="margin-top: 4rem; border-bottom: 1px solid var(--primary-color);">💻 Synthesized Languages</h3>
+    <div class="skills-grid">
+        {% for skill, count in github_skills %}
+        <div class="skill-card glass-panel" style="--delay: {{ (loop.index + 4) * 0.05 }}s">
+            <div class="skill-header">
+                <span class="skill-name">{{ skill }}</span>
+                <span class="skill-count">{{ count }} Repos</span>
+            </div>
+            <div class="skill-bar-bg">
+                <div class="skill-bar-fill"
+                    style="width: {{ (count / github_skills[0][1] * 100) if (github_skills and github_skills[0][1] > 0) else 0 }}%">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
