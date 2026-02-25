@@ -1,42 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Genomic Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Genomic Portfolio | Homo Technologicus{% endblock %}
 
-<canvas id="dna-bg"></canvas>
-
-<section class="hero">
-  <img id="profile-pic" class="profile">
+{% block content %}
+<section class="hero glass-panel">
+  {% if user %}
+  <img id="profile-pic" class="profile" src="{{ user.avatar_url }}" alt="Profile Photo">
   <h2 class="scientific">Homo Technologicus</h2>
-  <h1 class="glitch" data-text="Your Name">Nagesh - Aparna </h1>
+  <h1 class="glitch" data-text="{{ user.name or user.login }}">{{ user.name or user.login }}</h1>
+  <p class="bio">{{ user.bio or "Cybernetic researcher exploring code genomes and digital evolution." }}</p>
+
+  <div class="stats">
+    <div class="stat-box">
+      <span class="stat-num">{{ user.public_repos }}</span>
+      <span class="stat-label">Repositories</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">{{ user.followers }}</span>
+      <span class="stat-label">Followers</span>
+    </div>
+  </div>
+  {% else %}
+  <h2>Error Loading Profile</h2>
+  <p>Could not fetch data from GitHub. Please check your connection or username.</p>
+  {% endif %}
 </section>
-
-<nav>
-  <button onclick="showSection('about')">About</button>
-  <button onclick="showSection('skills')">Skills</button>
-  <button onclick="showSection('projects')">Projects</button>
-</nav>
-
-<section id="about" class="content active">
-  <h2>🧪 About</h2>
-  <p>Cybernetic researcher exploring code genomes and digital evolution.</p>
-</section>
-
-<section id="skills" class="content">
-  <h2>🧠 Skills (From GitHub)</h2>
-  <ul id="skills-list"></ul>
-</section>
-
-<section id="projects" class="content">
-  <h2>🚀 Projects (From GitHub)</h2>
-  <div id="repo-list"></div>
-</section>
-
-<script src="script.js"></script>
-</body>
-</html>
+{% endblock %}

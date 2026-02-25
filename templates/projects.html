@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Projects | Genomic Portfolio{% endblock %}
+
+{% block content %}
+<section class="content active glass-panel w-100">
+    <h2>🚀 My Projects</h2>
+    <div class="repo-grid">
+        {% set skills = [] %}
+        {% for repo in projects %}
+        <div class="repo-card glass-card">
+            <h3><a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a></h3>
+            <p>{{ repo.description or "No description provided." }}</p>
+            <div class="repo-meta">
+                {% if repo.language %}
+                <span class="badge">{{ repo.language }}</span>
+                {% if repo.language not in skills %}
+                {% set _ = skills.append(repo.language) %}
+                {% endif %}
+                {% endif %}
+                <span>⭐ {{ repo.stargazers_count }}</span>
+                <span>🍴 {{ repo.forks_count }}</span>
+            </div>
+        </div>
+        {% else %}
+        <p>No projects found.</p>
+        {% endfor %}
+    </div>
+
+    <div class="skills-section">
+        <h3>🧠 Identified Skills</h3>
+        <ul class="skills-list">
+            {% for skill in skills %}
+            <li class="skill-tag">{{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}

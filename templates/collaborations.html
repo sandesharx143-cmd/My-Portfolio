@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Collaborations | Genomic Portfolio{% endblock %}
+
+{% block content %}
+<section class="content active glass-panel w-100">
+    <h2>🤝 Collaborations & Forks</h2>
+    <div class="repo-grid">
+        {% for repo in projects %}
+        <div class="repo-card glass-card">
+            <h3><a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a></h3>
+            <p>{{ repo.description or "No description provided." }}</p>
+            <div class="repo-meta">
+                {% if repo.language %}
+                <span class="badge">{{ repo.language }}</span>
+                {% endif %}
+                <span>⭐ {{ repo.stargazers_count }}</span>
+                <span>🍴 {{ repo.forks_count }}</span>
+            </div>
+        </div>
+        {% else %}
+        <p>No collaborations found.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Genomic Portfolio{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- The 3D Multi-Color DNA Canvas Background -->
+    <canvas id="dna-bg"></canvas>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Home</a>
+        <a href="{{ url_for('projects') }}"
+            class="{% if request.endpoint == 'projects' %}active{% endif %}">Projects</a>
+        <a href="{{ url_for('collaborations') }}"
+            class="{% if request.endpoint == 'collaborations' %}active{% endif %}">Collaborations</a>
+    </nav>
+
+    <!-- Main Dynamic Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Loading the complex DNA script -->
+    <script src="{{ url_for('static', filename='js/dna.js') }}"></script>
+</body>
+
+</html>
