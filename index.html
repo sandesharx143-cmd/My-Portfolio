@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Genomic Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
 
-<canvas id="dna-bg"></canvas>
+  <canvas id="dna-bg"></canvas>
 
-<section class="hero">
-  <img id="profile-pic" class="profile">
-  <h2 class="scientific">Homo Technologicus</h2>
-  <h1 class="glitch" data-text="Your Name">Nagesh - Aparna </h1>
-</section>
+  <section class="hero">
+    <img id="profile-pic" class="profile">
+    <h2 class="scientific">Homo Technologicus</h2>
+    <h1 class="glitch" data-text="Your Name">Nagesh - Aparna </h1>
+  </section>
 
-<nav>
-  <button onclick="showSection('about')">About</button>
-  <button onclick="showSection('skills')">Skills</button>
-  <button onclick="showSection('projects')">Projects</button>
-</nav>
+  <nav>
+    <button onclick="showSection('About')">About</button>
+    <button onclick="showSection('Skills')">Skills</button>
+    <button onclick="showSection('Projects')">Projects</button>
+  </nav>
 
-<section id="about" class="content active">
-  <h2>🧪 About</h2>
-  <p>Cybernetic researcher exploring code genomes and digital evolution.</p>
-</section>
+  <section id="About" class="content active">
+    <h2>🧪 About</h2>
+    <p>Cybernetic researcher exploring code genomes and digital evolution.</p>
+  </section>
 
-<section id="skills" class="content">
-  <h2>🧠 Skills (From GitHub)</h2>
-  <ul id="skills-list"></ul>
-</section>
+  <section id="Skills" class="content">
+    <h2>🧠 Skills (From GitHub)</h2>
+    <ul id="skills-list"></ul>
+  </section>
 
-<section id="projects" class="content">
-  <h2>🚀 Projects (From GitHub)</h2>
-  <div id="repo-list"></div>
-</section>
+  <section id="Projects" class="content">
+    <h2>🚀 Projects (From GitHub)</h2>
+    <div id="repo-list"></div>
+  </section>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
