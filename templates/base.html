@@ -3,38 +3,47 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Genomic Portfolio{% endblock %}</title>
+    <title>{% block title %}_SYSTEM_BREACH{% endblock %}</title>
     <meta name="description"
-        content="Genomic Portfolio of a Cybernetic Developer. Explore projects, collaborations, and the digital genome.">
+        content="[ESTABLISHING_LINK... FAILURE] Welcome to the nightmarish void of a corrupted developer.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- The 3D Multi-Color DNA Canvas Background -->
+    <div id="intro-sequence">
+        <div id="joker-bg-1" class="joker-img"></div>
+        <div id="joker-bg-2" class="joker-img"></div>
+        <img id="floating-gun" src="{{ url_for('static', filename='img/stylized_tommy_gun.png') }}" alt="Gun">
+        <div id="single-card" class="playing-card">🃏</div>
+        <canvas id="intro-canvas"></canvas>
+    </div>
+
     <canvas id="dna-bg"></canvas>
 
-    <!-- Back Button (Visible on dashboard pages) -->
     {% if request.endpoint != 'index' %}
-    <a href="{{ url_for('index') }}" class="back-btn">&larr; Home</a>
+    <a href="{{ url_for('index') }}" class="back-btn">&larr; [RETURN_TO_VOID]</a>
     {% endif %}
 
-    <!-- Main Dynamic Content -->
     <main>
         {% block content %}
         {% endblock %}
     </main>
 
-    <!-- Footer -->
+    <div class="genetic-tape">
+        <span>FATAL_ERROR_0x000666 | ACCESS_DENIED | SYSTEM_BREACH | HA_HA_HA_HA_HA_HA_HA_HA_HA_HA_HA_HA_HA_HA_HA_HA_HA
+            | REBOOT_FAILED | DELETE_WORLD </span>
+    </div>
+
     <footer>
         <div class="footer-content">
-            <p>&copy; 2026 Genomic Portfolio | Developed by {{ GITHUB_USER or 'sandesharx143' }}</p>
+            <p>&copy; 2026 NIGHTMARE_SYSTEM | SYSTEM_USR: {{ GITHUB_USER or 'VOID' }}</p>
             <div class="social-links small">
-                <a href="https://github.com/{{ GITHUB_USER or 'sandesharx143' }}" target="_blank">GitHub</a>
-                <a href="#" target="_blank">LinkedIn</a>
+                <a href="https://github.com/{{ GITHUB_USER or 'sandesharx143' }}" target="_blank">_GITHUB_LINK</a>
+                <a href="#" target="_blank">_LINKEDIN_LINK</a>
             </div>
         </div>
     </footer>

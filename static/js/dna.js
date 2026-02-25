@@ -1,12 +1,20 @@
-const canvas = document.getElementById('dna-bg');
+const canvas = document.getElementById('intro-canvas');
 const ctx = canvas.getContext('2d');
+const introOverlay = document.getElementById('intro-sequence');
+const joker1 = document.getElementById('joker-bg-1');
+const joker2 = document.getElementById('joker-bg-2');
+const gun = document.getElementById('floating-gun');
+const cardEl = document.getElementById('single-card');
 
 let width, height;
-let strands = [];
+let particles = [];
+let cards = [];
+let sequenceStep = 0;
+const userName = "NAGESH R";
 
 function init() {
   resize();
-  createStrands();
+  startSequence();
   animate();
 }
 
@@ -15,92 +23,159 @@ function resize() {
   height = canvas.height = window.innerHeight;
 }
 
-function createStrands() {
-  strands = [];
-  // Increase density: more strands
-  const strandCount = 12;
-  for (let i = 0; i < strandCount; i++) {
-    strands.push({
+function startSequence() {
+  // Step 1: Initial Artwork (Start)
+
+  // Step 2: Fade to Joker 2 (3s)
+  setTimeout(() => {
+    joker2.style.opacity = 1;
+    triggerGlitch();
+  }, 3000);
+
+  // Step 3: Card Drift (5s)
+  setTimeout(() => {
+    cardEl.style.opacity = 1;
+    animateCard();
+  }, 5000);
+
+  // Step 4: Gun Reveal (8s)
+  setTimeout(() => {
+    gun.style.opacity = 1;
+    animateGun();
+  }, 8000);
+
+  // Step 5: Final Background (White + Scattered Cards) (12s)
+  setTimeout(() => {
+    introOverlay.classList.add('finished');
+    document.body.classList.add('white-theme');
+    createScatteredCards();
+    sequenceStep = 1; // Transition to final state
+  }, 12000);
+
+  // Step 6: Name Reveal (15s)
+  setTimeout(() => {
+    cardsToParticles();
+  }, 15000);
+
+  // Step 7: Fade Out Intro (18s)
+  setTimeout(() => {
+    introOverlay.style.transition = "opacity 2s";
+    introOverlay.style.opacity = 0;
+    setTimeout(() => introOverlay.style.display = "none", 2000);
+  }, 18000);
+}
+
+function triggerGlitch() {
+  let glitchInterval = setInterval(() => {
+    ctx.fillStyle = `rgba(255, 0, 0, ${Math.random() * 0.2})`;
+    ctx.fillRect(0, 0, width, height);
+    if (Math.random() > 0.8) {
+      ctx.drawImage(joker2, Math.random() * 20 - 10, Math.random() * 20 - 10, width, height);
+    }
+  }, 50);
+  setTimeout(() => clearInterval(glitchInterval), 1000);
+}
+
+function animateCard() {
+  let startTime = Date.now();
+  function move() {
+    let elapsed = (Date.now() - startTime) / 1000;
+    let x = width / 2 + Math.sin(elapsed) * 100;
+    let y = height - (elapsed * 50); // Drift upward
+    let rot = elapsed * 2;
+
+    cardEl.style.left = `${x}px`;
+    cardEl.style.top = `${y}px`;
+    cardEl.style.transform = `rotate(${rot}rad)`;
+
+    if (elapsed < 7) requestAnimationFrame(move);
+  }
+  move();
+}
+
+function animateGun() {
+  let startTime = Date.now();
+  function float() {
+    let elapsed = (Date.now() - startTime) / 1000;
+    let y = height / 2 + Math.sin(elapsed * 2) * 20;
+    gun.style.top = `${y}px`;
+    gun.style.left = `${width / 2 - 150}px`;
+    if (elapsed < 4) requestAnimationFrame(float);
+  }
+  float();
+}
+
+function createScatteredCards() {
+  cards = [];
+  for (let i = 0; i < 40; i++) {
+    cards.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      length: 400 + Math.random() * 800,
-      amplitude: 30 + Math.random() * 20,
-      frequency: 0.005 + Math.random() * 0.01,
-      speed: 0.2 + Math.random() * 0.5,
-      rotation: (Math.PI / 4) + (Math.random() - 0.5) * 0.2, // ~45 degrees
-      hueOffset: Math.random() * 360 // Start at different colors
+      rot: Math.random() * Math.PI * 2,
+      targetX: Math.random() * width,
+      targetY: Math.random() * height,
+      opacity: 1
     });
   }
 }
 
-function drawStrand(strand, time) {
-  const points = 40;
-  const step = strand.length / points;
+function cardsToParticles() {
+  sequenceStep = 2; // Morph to name
+  particles = [];
 
-  // Dynamic Color Shift based on time
-  const hue = (time * 0.05 + strand.hueOffset) % 360;
-  const colorA = `hsla(${hue}, 100%, 60%, 0.4)`;
-  const colorB = `hsla(${(hue + 60) % 360}, 100%, 60%, 0.4)`;
+  // Create particles for the name NAGESH R
+  ctx.font = `bold 120px "Creepster"`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "white";
+  ctx.fillText(userName, width / 2, height / 2);
 
-  ctx.save();
-  ctx.translate(strand.x, strand.y);
-  ctx.rotate(strand.rotation);
+  let imgData = ctx.getImageData(0, 0, width, height);
+  ctx.clearRect(0, 0, width, height);
 
-  // Drifting motion
-  const driftX = Math.sin(time * 0.001 + strand.hueOffset) * 50;
-  const driftY = Math.cos(time * 0.0012 + strand.hueOffset) * 50;
-  ctx.translate(driftX, driftY);
-
-  for (let i = -points / 2; i < points / 2; i++) {
-    const x = i * step;
-    const phase = i * 0.2 + time * 0.005;
-    const y1 = Math.sin(phase) * strand.amplitude;
-    const y2 = Math.sin(phase + Math.PI) * strand.amplitude;
-
-    // Connections (Base Pairs)
-    ctx.beginPath();
-    ctx.moveTo(x, y1);
-    ctx.lineTo(x, y2);
-    ctx.strokeStyle = `hsla(${hue}, 100%, 70%, 0.1)`;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    // Nodes (Atoms/Nucleotides)
-    ctx.beginPath();
-    ctx.arc(x, y1, 3, 0, Math.PI * 2);
-    ctx.fillStyle = colorA;
-    ctx.fill();
-    // Glow
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = colorA;
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(x, y2, 3, 0, Math.PI * 2);
-    ctx.fillStyle = colorB;
-    ctx.fill();
-    ctx.shadowColor = colorB;
-    ctx.fill();
-    ctx.shadowBlur = 0;
+  for (let y = 0; y < height; y += 4) {
+    for (let x = 0; x < width; x += 4) {
+      let i = (y * width + x) * 4;
+      if (imgData.data[i + 3] > 128) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          targetX: x,
+          targetY: y,
+          vx: 0,
+          vy: 0
+        });
+      }
+    }
   }
-  ctx.restore();
 }
 
 function animate() {
-  const time = Date.now();
   ctx.clearRect(0, 0, width, height);
 
-  // Subtle background particles
-  for (let i = 0; i < 50; i++) {
-    const px = (Math.sin(time * 0.0005 + i) * 0.5 + 0.5) * width;
-    const py = (Math.cos(time * 0.0004 + i) * 0.5 + 0.5) * height;
-    ctx.beginPath();
-    ctx.arc(px, py, 1, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-    ctx.fill();
+  if (sequenceStep === 1) {
+    // Draw scattered cards
+    ctx.fillStyle = "#000";
+    cards.forEach(c => {
+      ctx.save();
+      ctx.translate(c.x, c.y);
+      ctx.rotate(c.rot);
+      ctx.font = "40px Arial";
+      ctx.fillText("🃏", 0, 0);
+      ctx.restore();
+    });
+  } else if (sequenceStep === 2) {
+    // Draw particles forming name
+    ctx.fillStyle = "#ff0000";
+    particles.forEach(p => {
+      let dx = p.targetX - p.x;
+      let dy = p.targetY - p.y;
+      p.x += dx * 0.1;
+      p.y += dy * 0.1;
+      ctx.fillRect(p.x, p.y, 2, 2);
+    });
   }
 
-  strands.forEach(s => drawStrand(s, time));
   requestAnimationFrame(animate);
 }
 

@@ -1,51 +1,50 @@
 {% extends "base.html" %}
-{% block title %}Projects | Genomic Portfolio{% endblock %}
+{% block title %}Schemes | Joker's Record{% endblock %}
 
 {% block content %}
-<section class="content active glass-panel w-100">
-    <h2>🚀 My Projects</h2>
+<section class="glass-panel w-100 animate-in">
+    <h2 style="font-size: 3.5rem; color: var(--accent-red);">🃏 MY SCHEMES (PROJECTS)</h2>
     <div class="repo-grid">
         {% for repo in own_projects %}
-        <div class="repo-card glass-card">
-            <h3><a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a></h3>
-            <p>{{ repo.description or "No description provided." }}</p>
-            <div class="repo-meta">
+        <div class="dash-card glass-panel" style="height: auto; padding: 2rem !important; margin-bottom: 1rem;">
+            <h3 style="font-size: 2rem;"><a href="{{ repo.html_url }}" target="_blank"
+                    style="color: var(--primary-color); text-decoration: none;">{{ repo.name }}</a></h3>
+            <p style="color: var(--text-dim); margin-bottom: 1.5rem;">{{ repo.description or "A secret scheme with no
+                description..." }}</p>
+            <div class="repo-meta"
+                style="display: flex; gap: 2rem; border-top: 1px solid var(--secondary-color); padding-top: 1rem;">
                 {% if repo.language %}
-                <span class="badge">{{ repo.language }}</span>
+                <span class="badge" style="background: var(--secondary-color); color: #fff; padding: 0.3rem 0.8rem;">{{
+                    repo.language }}</span>
                 {% endif %}
-                <span>⭐ {{ repo.stargazers_count }}</span>
+                <span style="color: var(--primary-color);">⭐ {{ repo.stargazers_count }} Fans</span>
             </div>
         </div>
         {% else %}
-        <p>No projects found.</p>
+        <p>The city is too quiet. No schemes found.</p>
         {% endfor %}
     </div>
 
-    <h2 style="margin-top: 4rem;">🤝 Collaborations & Foss</h2>
+    <h2 style="margin-top: 5rem; font-size: 3rem; color: var(--secondary-color);">🤝 ALLIES & CHAOS (COLLABS)</h2>
     <div class="repo-grid">
         {% for repo in collab_projects %}
-        <div class="repo-card glass-card">
-            <h3><a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a></h3>
-            <p>{{ repo.description or "No description provided." }}</p>
-            <div class="repo-meta">
+        <div class="dash-card glass-panel"
+            style="height: auto; padding: 2rem !important; margin-bottom: 1rem; border-color: var(--secondary-color);">
+            <h3 style="font-size: 2rem;"><a href="{{ repo.html_url }}" target="_blank"
+                    style="color: var(--secondary-color); text-decoration: none;">{{ repo.name }}</a></h3>
+            <p style="color: var(--text-dim); margin-bottom: 1.5rem;">{{ repo.description or "A joint operation with no
+                record." }}</p>
+            <div class="repo-meta"
+                style="display: flex; gap: 2rem; border-top: 1px solid var(--accent-red); padding-top: 1rem;">
                 {% if repo.language %}
-                <span class="badge">{{ repo.language }}</span>
+                <span class="badge" style="background: var(--accent-red); color: #fff;">{{ repo.language }}</span>
                 {% endif %}
-                <span>⭐ {{ repo.stargazers_count }}</span>
+                <span style="color: var(--secondary-color);">⭐ {{ repo.stargazers_count }} Fans</span>
             </div>
         </div>
         {% else %}
-        <p>No collaborations found.</p>
+        <p>I work alone.</p>
         {% endfor %}
-    </div>
-
-    <div class="skills-section">
-        <h3>🧠 Identified Skills</h3>
-        <ul class="skills-list">
-            {% for skill in skills %}
-            <li class="skill-tag">{{ skill }}</li>
-            {% endfor %}
-        </ul>
     </div>
 </section>
 {% endblock %}

@@ -28,19 +28,19 @@ def index():
     # Calculate GitHub stats
     total_stars = sum(r.get("stargazers_count", 0) for r in repos)
     
-    # Biometric "Fake" Stats for Atmosphere
+    # Chaos Analytics
     import random
-    bio_stats = {
-        "neural_sync": random.randint(85, 99),
-        "genetic_integrity": "99.2%",
-        "uptime": "100%",
-        "evolution_level": "V3.2"
+    chaos_stats = {
+        "madness_sync": random.randint(90, 100),
+        "chaos_level": "MAXIMUM",
+        "smile_status": "ENABLED",
+        "laugh_count": "INFINITY"
     }
             
     return render_template("index.html", 
                            user=user_data, 
                            total_stars=total_stars,
-                           bio_stats=bio_stats)
+                           chaos_stats=chaos_stats)
 
 @app.route("/about")
 def about():
@@ -60,7 +60,7 @@ def projects():
 def skills():
     repos = fetch_github_repos()
     
-    # 1. Automated Skills (Languages)
+    # 1. Automated Skills (Chaos Toolkit)
     skills_map = {}
     for r in repos:
         lang = r.get("language")
@@ -69,17 +69,17 @@ def skills():
     
     sorted_github_skills = sorted(skills_map.items(), key=lambda x: x[1], reverse=True)
     
-    # 2. Manual "Neural" Skills (Bio-themed)
-    neural_skills = [
-        {"name": "Neural Architecture", "level": 95, "desc": "Full-stack synthesis and system design."},
-        {"name": "DNA Sequencing", "level": 88, "desc": "Advanced data analysis and pattern recognition."},
-        {"name": "Synthetic UI", "level": 92, "desc": "Crafting high-fidelity digital interfaces."},
-        {"name": "Cognitive Logic", "level": 90, "desc": "Algorithmic thinking and problem solving."}
+    # 2. Manual "Madness" Skills (Joker-themed)
+    madness_skills = [
+        {"name": "Social Engineering", "level": 99, "desc": "Manipulating systems and minds for desired outcomes."},
+        {"name": "Anarchy Logic", "level": 95, "desc": "Crafting complex solutions from pure chaos."},
+        {"name": "Theatrical Flair", "level": 92, "desc": "Designing high-impact, terrifyingly beautiful interfaces."},
+        {"name": "Explosive Backend", "level": 90, "desc": "Building servers that can handle the world's end."}
     ]
     
     return render_template("skills.html", 
                            github_skills=sorted_github_skills, 
-                           neural_skills=neural_skills)
+                           madness_skills=madness_skills)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

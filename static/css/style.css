@@ -1,130 +1,331 @@
 :root {
-  --primary-color: #00ffff;
-  --secondary-color: #00d4ff;
-  --accent-purple: #bd00ff;
-  --bg-dark: #02020a;
-  --bg-navy: radial-gradient(circle at center, #05051a 0%, #02020a 100%);
-  --glass-bg: rgba(5, 10, 25, 0.4);
-  --glass-border: rgba(0, 255, 255, 0.15);
-  --text-light: #e0faff;
-  --text-muted: #66aab5;
-  --neon-glow: 0 0 15px rgba(0, 255, 255, 0.5);
+  --primary-color: #ff0000;
+  --secondary-color: #1a1a1a;
+  --hacker-green: #00ff41;
+  --blood-glow: 0 0 20px rgba(255, 0, 0, 0.6);
+  --hacker-font: 'Share Tech Mono', monospace;
+  --title-font: 'Creepster', cursive;
+  --white-bg: #ffffff;
+  --dark-text: #1a1a1a;
+}
+
+/* Intro Sequence Overlay */
+#intro-sequence {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.joker-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+#joker-bg-1 {
+  background-image: url('../img/joker_1.png');
+  opacity: 1;
+}
+
+#joker-bg-2 {
+  background-image: url('../img/joker_2.png');
+}
+
+#floating-gun {
+  position: absolute;
+  width: 300px;
+  opacity: 0;
+  filter: drop-shadow(0 0 15px var(--primary-color));
+  z-index: 100;
+}
+
+.playing-card {
+  position: absolute;
+  font-size: 5rem;
+  opacity: 0;
+  z-index: 101;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+#intro-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 102;
+  pointer-events: none;
+}
+
+#intro-sequence.finished {
+  pointer-events: none;
+  background: var(--white-bg);
+  transition: background 1s ease-in;
+}
+
+#intro-sequence.finished .joker-img,
+#intro-sequence.finished #floating-gun,
+#intro-sequence.finished #single-card {
+  display: none;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  cursor: url('https://cur.cursors-4u.net/symbols/sym-1/sym46.cur'), auto;
+  /* Crosshair cursor */
 }
 
 body {
   margin: 0;
   overflow-x: hidden;
-  background: var(--bg-navy);
-  color: var(--text-light);
-  font-family: 'Share Tech Mono', monospace;
+  background-color: #000;
+  color: #fff;
+  font-family: var(--hacker-font);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 2s ease-in-out;
 }
 
-/* Background Effect */
-#dna-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  pointer-events: none;
-  filter: blur(1px);
+body.white-theme {
+  background-color: var(--white-bg);
+  color: var(--dark-text);
+  background-image: none;
 }
 
-/* Biometric Scanner Overlay */
+body.white-theme .glass-panel {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #ddd;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  color: var(--dark-text);
+}
+
+body.white-theme h1,
+body.white-theme h2,
+body.white-theme h3 {
+  color: var(--dark-text);
+  text-shadow: none;
+}
+
+body.white-theme .back-btn {
+  border-color: var(--dark-text);
+  color: var(--dark-text);
+}
+
+/* Background Hero Overlay */
 body::before {
   content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-  z-index: 1000;
-  opacity: 0.3;
-  animation: scan 4s linear infinite;
-  pointer-events: none;
+  height: 100%;
+  background: url('../../../.gemini/antigravity/brain/d0b08b4c-b84b-4170-b1cd-e215efec1460/nightmare_joker_card_png_1772036409725.png') center/cover no-repeat;
+  opacity: 0.2;
+  z-index: -2;
+  filter: grayscale(0.5) contrast(1.2);
 }
 
-@keyframes scan {
+/* Rain of Blood / Scratch Effect */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.1;
+  animation: jitter 0.1s infinite;
+}
+
+@keyframes jitter {
   0% {
-    top: -10%;
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(1px, -1px);
+  }
+
+  50% {
+    transform: translate(-1px, 1px);
+  }
+
+  75% {
+    transform: translate(2px, 0);
   }
 
   100% {
-    top: 110%;
+    transform: translate(0, 0);
   }
 }
 
-/* Glassmorphism Panels */
+/* Blood Flood Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255, 0, 0, 0.4) 0%, transparent 100%);
+  z-index: 500;
+  pointer-events: none;
+  animation: flood-pulse 4s infinite alternate;
+}
+
+@keyframes flood-pulse {
+  0% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0.8;
+  }
+}
+
+/* Bleeding Name Effect */
+.bleeding-name {
+  color: #fff;
+  position: relative;
+  font-size: 6rem !important;
+  text-shadow: 0 0 40px #ff0000;
+  margin-bottom: 2rem;
+}
+
+.bleeding-name::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #ff0000;
+  filter: blur(6px);
+  animation: bleed 3s infinite ease-in;
+  z-index: -1;
+  width: 100%;
+}
+
+@keyframes bleed {
+  0% {
+    transform: translateY(0) scaleY(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(150px) scaleY(5);
+    opacity: 0;
+  }
+}
+
+/* Hacker Text Styling */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--title-font);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--primary-color);
+  text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 0, 0, 0.4);
+}
+
+p,
+span,
+a,
+div {
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 1px;
+}
+
+/* Glass Panels with Cracked Effect */
 .glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--neon-glow);
-  border-radius: 20px;
-  padding: 3rem;
+  background: rgba(10, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 50px rgba(255, 0, 0, 0.1);
+  border-radius: 0;
+  /* Brutalist/Hacker style */
+  padding: 2.5rem;
   margin: 2rem auto;
   max-width: 1000px;
   position: relative;
   overflow: hidden;
 }
 
-/* Decorative Bio-Hex Pattern */
-.glass-panel::after {
+.glass-panel::before {
   content: "";
   position: absolute;
   top: 0;
-  right: 0;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, var(--primary-color) 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 0.05;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/broken-noise.png');
+  opacity: 0.1;
   pointer-events: none;
 }
 
-/* Typography */
-h1,
-h2,
-h3 {
-  font-family: 'Orbitron', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  color: #fff;
-  text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+/* Home Layout */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  items-center;
+  gap: 3rem;
+  padding-top: 5rem;
+  z-index: 10;
 }
 
-.glitch {
-  font-size: 4rem;
-  font-weight: 800;
-  animation: glitch-color 10s infinite;
+.profile-frame {
+  width: 220px;
+  height: 220px;
+  border: 4px solid var(--primary-color);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 30px var(--primary-color);
+  transform: rotate(-3deg);
 }
 
-@keyframes glitch-color {
+.profile-frame::after {
+  content: "ACCESS_DENIED";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: var(--primary-color);
+  color: #000;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
 
-  0%,
-  100% {
-    color: #fff;
-  }
+.home-profile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(100%) hue-rotate(320deg) brightness(0.8) contrast(1.5);
+  transition: 0.3s;
+}
 
-  33% {
-    color: var(--primary-color);
-  }
-
-  66% {
-    color: var(--accent-purple);
-  }
+.home-profile:hover {
+  filter: none;
+  transform: scale(1.05);
 }
 
 /* Back Button */
@@ -132,247 +333,114 @@ h3 {
   position: fixed;
   top: 2rem;
   left: 2rem;
-  z-index: 1001;
-  background: var(--glass-bg);
-  border: 1px solid var(--primary-color);
+  z-index: 1100;
+  background: #000;
+  border: 2px solid var(--primary-color);
   color: var(--primary-color);
-  padding: 0.8rem 1.5rem;
-  border-radius: 4px;
-  text-transform: uppercase;
-  font-family: 'Orbitron', sans-serif;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
+  padding: 0.5rem 1.5rem;
+  font-family: var(--hacker-font);
+  text-decoration: none;
+  transition: 0.2s;
 }
 
 .back-btn:hover {
   background: var(--primary-color);
   color: #000;
-  box-shadow: 0 0 30px var(--primary-color);
-  transform: translateX(10px);
+  box-shadow: 0 0 20px var(--primary-color);
 }
 
-/* Home Layout */
-.home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  padding-top: 4rem;
-  width: 100%;
-}
-
-.profile-frame {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  padding: 8px;
-  background: conic-gradient(from 180deg at 50% 50%, var(--primary-color), var(--accent-purple), var(--secondary-color), var(--primary-color));
-  animation: rotate-border 10s linear infinite;
-  box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
-}
-
-@keyframes rotate-border {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.home-profile {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 6px solid var(--bg-dark);
-  animation: rotate-reverse 10s linear infinite;
-}
-
-@keyframes rotate-reverse {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-.scientific-tag {
-  font-family: 'Share Tech Mono', monospace;
-  color: var(--primary-color);
-  letter-spacing: 5px;
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  opacity: 0.6;
-  text-transform: uppercase;
-}
-
-.bio-data-tag {
-  display: inline-block;
-  font-size: 0.65rem;
-  background: rgba(0, 255, 255, 0.05);
-  padding: 0.3rem 1rem;
-  border-radius: 2px;
-  border: 1px solid rgba(0, 255, 255, 0.3);
-  color: var(--primary-color);
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-family: 'Share Tech Mono', monospace;
-}
-
-/* Activity Strip (The "Vitals") */
-.activity-strip {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  max-width: 900px;
-  padding: 1.5rem !important;
-  border-left: 4px solid var(--primary-color) !important;
-  background: linear-gradient(90deg, rgba(0, 255, 255, 0.05), transparent) !important;
-}
-
-.activity-box {
-  text-align: center;
-  position: relative;
-}
-
-.activity-num {
-  font-size: 2.2rem;
-  font-family: 'Orbitron', sans-serif;
-  color: #fff;
-}
-
-.activity-label {
-  color: var(--text-muted);
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-}
-
-/* Dashboard Matrix */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-  width: 100%;
-  max-width: 1100px;
-}
-
+/* Dashboard Cards */
 .dash-card {
-  height: 350px;
+  height: 320px;
+  border: 1px solid var(--primary-color);
+  background: #050000;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  border: 1px solid rgba(0, 255, 255, 0.1) !important;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  text-decoration: none;
 }
 
 .dash-card:hover {
-  background: rgba(0, 255, 255, 0.08);
-  border-color: var(--primary-color) !important;
-  transform: translateY(-20px) scale(1.05);
-  box-shadow: 0 0 40px rgba(0, 255, 255, 0.2), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  background: var(--primary-color);
+  transform: translateY(-5px);
+}
+
+.dash-card:hover * {
+  color: #000 !important;
+  text-shadow: none !important;
 }
 
 .dash-icon {
-  font-size: 4rem;
-  margin-bottom: 2rem;
-  filter: drop-shadow(0 0 10px var(--primary-color));
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 5px var(--primary-color));
 }
 
-/* Animating Items */
-.animate-in {
-  opacity: 0;
-  animation: slide-up 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  animation-delay: var(--delay);
+/* Stats (Hacker Vitals) */
+.activity-strip {
+  border-top: 1px solid var(--primary-color) !important;
+  border-bottom: 1px solid var(--primary-color) !important;
+  background: rgba(40, 0, 0, 0.2) !important;
+  padding: 1rem !important;
 }
 
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.activity-num {
+  font-family: var(--hacker-font);
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  text-shadow: 0 0 10px var(--primary-color);
 }
 
-/* Skill Matrix */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+/* Scrolling Tape (Hacker Stream) */
+.genetic-tape {
+  background: var(--primary-color);
+  color: #000;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
-.skill-bar-bg {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-  margin-top: 1rem;
-  overflow: hidden;
-  border: 1px solid rgba(0, 255, 255, 0.1);
-}
-
-.skill-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-purple));
-  box-shadow: 0 0 15px var(--primary-color);
-  animation: grow 2s ease-out forwards;
-  transform-origin: left;
-}
-
-@keyframes grow {
-  from {
-    transform: scaleX(0);
-  }
-
-  to {
-    transform: scaleX(1);
-  }
+.genetic-tape span {
+  font-weight: 900;
+  font-size: 0.9rem;
+  animation: scroll-tape 15s linear infinite;
 }
 
 /* Footer */
 footer {
-  padding: 4rem 2rem;
-  background: rgba(2, 2, 10, 0.95);
-  border-top: 1px solid var(--glass-border);
+  background: #000;
+  border-top: 1px solid var(--primary-color);
+  padding: 3rem;
   text-align: center;
-}
-
-.social-links.small {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-top: 1.5rem;
-}
-
-.social-links.small a {
   font-size: 0.8rem;
-  color: var(--text-muted);
-  letter-spacing: 2px;
-  transition: 0.3s;
-}
-
-.social-links.small a:hover {
   color: var(--primary-color);
-  text-shadow: 0 0 15px var(--primary-color);
 }
 
-@media (max-width: 900px) {
+footer a {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* Matrix/Hacker Animation */
+.hacker-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
-    padding: 0 2rem;
   }
 
   .glitch {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 }

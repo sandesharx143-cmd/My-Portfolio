@@ -1,34 +1,57 @@
 {% extends "base.html" %}
-{% block title %}About | Genomic Portfolio{% endblock %}
+{% block title %}About | Subject_Report_#666{% endblock %}
 
 {% block content %}
-<section class="glass-panel about-dashboard animate-in">
-    <h2>🧪 Personal Genome Analysis</h2>
-    <div class="bio-content">
-        <p class="bio">
-            Hello! I'm a passionate developer focused on building immersive digital experiences.
-            I specialize in creating high-performance web applications, exploring the intersection
-            of biotechnology and technology, and crafting elegant solutions to complex problems.
-        </p>
-        <p class="bio">
-            My work is driven by curiosity and a desire to push the boundaries of what's possible
-            in the digital realm. Whether it's genomic data visualization or modern web architecture,
-            I'm always eager to learn and innovate.
-        </p>
+<section class="glass-panel about-dashboard animate-in report-style"
+    style="border-right: 5px solid var(--primary-color);">
+    <div class="report-header">
+        <div class="report-id">DELETED_ID: #{{ user.name or 'SUBJECT' }}-VOID</div>
+        <div class="report-date">LAST_SEEN: ERROR_404</div>
     </div>
 
-    <div class="bio-metadata">
+    <h2 style="font-size: 3.5rem;">_TERMINAL_BIO_SYSTEM</h2>
+
+    <div class="bio-content-grid">
+        <div class="bio-text">
+            <p class="bio"
+                style="font-family: 'Share Tech Mono', monospace; border-left: 2px solid var(--primary-color); padding-left: 1rem;">
+                > INITIALIZING SUBJECT DATA...
+                > WARNING: CORRUPTED FILES DETECTED.
+                > Hello... I build digital architectures from the remains of broken logic.
+                I don't just develop; I infect the web with high-octane performance and nightmarish interfaces.
+            </p>
+            <p class="bio">
+                My code is a virus that optimizes your experience. I specialize in backend traumas and
+                frontend hallucinations.
+            </p>
+            <p class="bio" style="color: var(--primary-color); font-weight: bold; font-family: 'Creepster', cursive;">
+                I AM THE GLITCH IN YOUR SYSTEM.
+            </p>
+        </div>
+
+        <div class="bio-tech-specs glass-panel"
+            style="background: rgba(40, 0, 0, 0.4) !important; border: 1px solid var(--primary-color) !important;">
+            <h4 style="color: #fff; font-size: 0.8rem; margin-bottom: 1rem;">// SYSTEM_TRAUMAS</h4>
+            <div class="spec-row"><span>Logic_Shatter</span> <span>99%</span></div>
+            <div class="spec-row"><span>Interface_Rot</span> <span>MAX</span></div>
+            <div class="spec-row"><span>Reality_Sync</span> <span>FAILED</span></div>
+        </div>
+    </div>
+
+    <div class="bio-metadata"
+        style="border-top: 2px solid var(--primary-color); font-family: 'Share Tech Mono', monospace;">
         <div class="meta-item">
-            <span class="meta-label">Species</span>
-            <span class="meta-value">Homo Technologicus</span>
+            <span class="meta-label">STATUS</span>
+            <span class="meta-value hacker-blink"
+                style="color: var(--primary-color); font-weight: bold;">[TERMINATED]</span>
         </div>
         <div class="meta-item">
-            <span class="meta-label">Origin</span>
-            <span class="meta-value">Digital Frontier</span>
+            <span class="meta-label">ORIGIN</span>
+            <span class="meta-value">THE_VOID</span>
         </div>
         <div class="meta-item">
-            <span class="meta-label">Status</span>
-            <span class="meta-value">Actively Synthesizing</span>
+            <span class="meta-label">LAST_KNOWN</span>
+            <span class="meta-value">UNDER_YOUR_BED</span>
         </div>
     </div>
 </section>

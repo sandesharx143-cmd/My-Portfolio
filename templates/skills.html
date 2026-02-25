@@ -1,37 +1,47 @@
 {% extends "base.html" %}
-{% block title %}Skills | Genomic Portfolio{% endblock %}
+{% block title %}Skills | Kill_Toolkit_v0.1{% endblock %}
 
 {% block content %}
-<section class="glass-panel skills-dashboard animate-in">
-    <h2>🧠 Neural Skill Matrix</h2>
+<section class="glass-panel skills-dashboard animate-in" style="border-left: 10px solid var(--primary-color);">
+    <h2 style="font-size: 3.5rem;">_THE_KILL_TOOLKIT</h2>
 
-    <h3 style="margin-top: 2rem; border-bottom: 1px solid var(--primary-color);">🧬 Primary Neural Pathways</h3>
+    <h3
+        style="margin-top: 2rem; border-bottom: 2px solid var(--primary-color); color: var(--primary-color); font-family: 'Share Tech Mono', monospace;">
+        > [NEURAL_OVERWRITE_STATUS]</h3>
     <div class="skills-grid">
-        {% for skill in neural_skills %}
-        <div class="skill-card glass-panel" style="--delay: {{ loop.index * 0.1 }}s">
+        {% for skill in madness_skills %}
+        <div class="skill-card glass-panel"
+            style="--delay: {{ loop.index * 0.1 }}s; border: 1px dashed var(--primary-color);">
             <div class="skill-header">
-                <span class="skill-name">{{ skill.name }}</span>
+                <span class="skill-name"
+                    style="color: var(--primary-color); font-family: 'Share Tech Mono', monospace;">{{ skill.name
+                    }}</span>
                 <span class="skill-count">{{ skill.level }}%</span>
             </div>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">{{ skill.desc }}</p>
-            <div class="skill-bar-bg">
-                <div class="skill-bar-fill" style="width:{{ skill.level }}%"></div>
+            <p style="font-size: 0.8rem; color: #666; margin-bottom: 1rem;">// DATA: {{ skill.desc }}</p>
+            <div class="skill-bar-bg" style="background: #110000; height: 12px; border: 1px solid #330000;">
+                <div class="skill-bar-fill"
+                    style="width:{{ skill.level }}%; background: var(--primary-color); box-shadow: 0 0 20px var(--primary-color);">
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
 
-    <h3 style="margin-top: 4rem; border-bottom: 1px solid var(--primary-color);">💻 Synthesized Languages</h3>
+    <h3
+        style="margin-top: 4rem; border-bottom: 2px solid #fff; color: #fff; font-family: 'Share Tech Mono', monospace;">
+        > [SYNTHESIZED_VIRUSES]</h3>
     <div class="skills-grid">
         {% for skill, count in github_skills %}
-        <div class="skill-card glass-panel" style="--delay: {{ (loop.index + 4) * 0.05 }}s">
+        <div class="skill-card glass-panel"
+            style="--delay: {{ (loop.index + 4) * 0.05 }}s; background: rgba(0,0,0,0.9);">
             <div class="skill-header">
-                <span class="skill-name">{{ skill }}</span>
-                <span class="skill-count">{{ count }} Repos</span>
+                <span class="skill-name" style="color: #fff;">{{ skill }}</span>
+                <span class="skill-count">{{ count }} Infestations</span>
             </div>
-            <div class="skill-bar-bg">
+            <div class="skill-bar-bg" style="height: 4px;">
                 <div class="skill-bar-fill"
-                    style="width: {{ (count / github_skills[0][1] * 100) if (github_skills and github_skills[0][1] > 0) else 0 }}%">
+                    style="width: {{ (count / github_skills[0][1] * 100) if (github_skills and github_skills[0][1] > 0) else 0 }}%; background: #666;">
                 </div>
             </div>
         </div>

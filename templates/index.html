@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Genomic Portfolio | Homo Technologicus{% endblock %}
+{% block title %}_DEAD_SYSTEM | NIGHTMARE_HUB{% endblock %}
 
 {% block content %}
 <div class="home-container">
-  <!-- Profile Header -->
+  <!-- Restricted Header -->
   <header class="home-header">
     <div class="profile-frame">
       {% if user and user.avatar_url %}
@@ -12,60 +12,59 @@
       <div class="profile-placeholder"></div>
       {% endif %}
     </div>
-    <div class="bio-data-tag">Sequence: DH-01 // Verified</div>
-    <h1 class="glitch" data-text="{{ user.name or 'Nagesh R' }}">{{ user.name or 'Nagesh R' }}</h1>
-    <p class="scientific-tag">Synthesized Organic System: V2.1</p>
+    <h1 class="glitch bleeding-name" data-text="NAGESH R">NAGESH R</h1>
+    <p class="scientific-tag hacker-blink" style="color: #fff; background: var(--primary-color); padding: 0.2rem 1rem;">
+      [SYSTEM_FLOOD: DETECTED]</p>
   </header>
 
-  <!-- Biometric Activity Section -->
-  <section class="activity-strip glass-panel"
-    style="margin-bottom: 1rem !important; border-color: rgba(0, 255, 255, 0.3);">
+  <!-- Nightmare Stats -->
+  <section class="activity-strip glass-panel">
     <div class="activity-box">
-      <span class="activity-num">{{ bio_stats.neural_sync }}%</span>
-      <span class="activity-label">Neural Sync</span>
+      <span class="activity-num">{% if chaos_stats %}{{ chaos_stats.madness_sync }}{% else %}ERR{% endif %}%</span>
+      <span class="activity-label">Madness_Buffer</span>
     </div>
     <div class="activity-box">
-      <span class="activity-num">{{ bio_stats.genetic_integrity }}</span>
-      <span class="activity-label">Genetic Integrity</span>
+      <span class="activity-num">FATAL</span>
+      <span class="activity-label">Safety_Level</span>
     </div>
     <div class="activity-box">
-      <span class="activity-num">{{ bio_stats.evolution_level }}</span>
-      <span class="activity-label">Evolution</span>
+      <span class="activity-num">999+</span>
+      <span class="activity-label">System_Traumas</span>
     </div>
   </section>
 
-  <!-- GitHub Activity Section -->
-  <section class="activity-strip glass-panel">
+  <!-- Digital Loot -->
+  <section class="activity-strip glass-panel" style="border-color: rgba(255, 0, 0, 0.5) !important;">
     <div class="activity-box">
       <span class="activity-num">{{ user.public_repos or 0 }}</span>
-      <span class="activity-label">Repositories</span>
+      <span class="activity-label">Encrypted_Repos</span>
     </div>
     <div class="activity-box">
       <span class="activity-num">{{ total_stars or 0 }}</span>
-      <span class="activity-label">Stars</span>
+      <span class="activity-label">Exploit_Points</span>
     </div>
     <div class="activity-box">
       <span class="activity-num">{{ user.followers or 0 }}</span>
-      <span class="activity-label">Followers</span>
+      <span class="activity-label">Bot_Followers</span>
     </div>
   </section>
 
-  <!-- Dashboard Grid -->
+  <!-- System Modules -->
   <div class="dashboard-grid">
-    <a href="{{ url_for('about') }}" class="dash-card glass-panel animate-in" style="--delay: 0.1s">
-      <div class="dash-icon">🧬</div>
-      <h3>About</h3>
-      <p>Deciphering the personal bio and digital history.</p>
+    <a href="{{ url_for('about') }}" class="dash-card glass-panel" style="--delay: 0.1s">
+      <div class="dash-icon">💉</div>
+      <h3>_SUBJECT_DATA</h3>
+      <p>Deciphering the corrupted memory files.</p>
     </a>
-    <a href="{{ url_for('projects') }}" class="dash-card glass-panel animate-in" style="--delay: 0.2s">
-      <div class="dash-icon">🚀</div>
-      <h3>Projects</h3>
-      <p>Exploring the repository of digital constructions.</p>
+    <a href="{{ url_for('projects') }}" class="dash-card glass-panel" style="--delay: 0.2s">
+      <div class="dash-icon">🔫</div>
+      <h3>_SCHEMES_V2</h3>
+      <p>Executing malicious repository scripts.</p>
     </a>
-    <a href="{{ url_for('skills') }}" class="dash-card glass-panel animate-in" style="--delay: 0.3s">
-      <div class="dash-icon">🧠</div>
-      <h3>Skills</h3>
-      <p>Analyzing the neural pathways of code expertise.</p>
+    <a href="{{ url_for('skills') }}" class="dash-card glass-panel" style="--delay: 0.3s">
+      <div class="dash-icon">💀</div>
+      <h3>_KILL_TOOLKIT</h3>
+      <p>Analyzing the sharp edges of my expertise.</p>
     </a>
   </div>
 </div>
